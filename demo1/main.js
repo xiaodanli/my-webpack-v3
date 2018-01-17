@@ -1,0 +1,1 @@
+document.write("第一个webpack的demo已完成，还挺简单~~,快去继续下一个吧！")

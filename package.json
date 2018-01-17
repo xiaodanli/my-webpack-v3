@@ -1,0 +1,31 @@
+{
+  "name": "webpack-v3-demos",
+  "version": "1.0.0",
+  "description": "webpack是一个现代javascript应用程序的静态模块打包器。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaodanli/my-webpack-v3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiaodanli/my-webpack-v3/issues"
+  },
+  "homepage": "https://github.com/xiaodanli/my-webpack-v3#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-runtime": "^6.26.0",
+    "runtime": "^0.14.1",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
+}
