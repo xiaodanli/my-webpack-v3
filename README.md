@@ -24,7 +24,19 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
 三、webpack的核心概念
 
-    1》entry
+    1》entry   入口
+
+    2》output  出口
+
+    3》loader
+
+    4》plugins
+
+     常用的名词：Chunk    代码块
+
+               Bundle   打包
+
+               Module   模块
 
 
 
