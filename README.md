@@ -94,11 +94,11 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
             使用：在代码开头引用  import 'babel-polyfill'
 
-    6》demo6 打包公用代码
+    6》demo6 打包公用代码（1）
 
         原因：1）减少代码冗余  2）提高加载速度
 
-        webpack.optimize.CommonsChunkPlugin内置插件
+        webpack.optimize.CommonsChunkPlugin内置插件 适用多entry的情况下
 
         配置
 
@@ -110,7 +110,7 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
             options.minChunks   提取的公用代码最少出现几次
 
-            options.chunks      提取公用代码的范围
+            options.chunks      提取公用代码的范围 和chidren deepChildren互斥
 
             options.children    entry的子模块中
 
@@ -122,11 +122,53 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
             1）提取两个及两个以上 Chunk 的公共代码
 
-    7》demo7 提取第三方依赖
+    7》demo7 打包公用代码（2） 提取第三方依赖
 
         #遇到webpackJsonp is not defined？
 
         解决办法：把生成的公用文件放到自己js前面即可
+
+    8》demo8 代码分割和懒加载（1） 让用户在尽可能少的时间内看到页面  适用单entry
+
+        webpack内置的方法
+
+            #require.ensure([依赖],callback,errorCallback(可省略),chunkName)
+
+                例：require.ensure(['lodash'], function () {
+                    var _ = require('lodash')  //这里必须引用一下，下面才可以使用
+                    _.join([1, 2], 3)
+                },'vendor')
+
+                注：require.ensure(['lodash])只是把代码放到页面内，而不执行，
+
+                   var _ = require('lodash')  //这里必须引用一下，下面才可以使用
+
+            #require.include 引用却不执行
+
+    9》demo9 代码分割和懒加载（2）
+
+        2）ES2015 loader spec
+
+            import() -> 返回Promise  import()-->引用并执行代码
+
+            import().then()
+
+            import(/* webpackChunkName:async-chunk-name*/
+                /*webpackMode:lazy*/
+                modulename
+            )
+
+        代码分割和懒加载适用场景：
+
+            1）分离业务代码和第三方依赖
+
+            2）分离业务代码和业务公用代码和第三方依赖
+
+            3）分离首次加载和访问后加载代码
+
+    10》demo10是打包公用代码和代码分割整合
+
+
 
 
 

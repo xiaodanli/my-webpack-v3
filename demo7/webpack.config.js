@@ -9,7 +9,7 @@ module.exports = {
         vendor:['./libs/jquery.min.js'] //第三方依赖
     },
     output:{
-        filename:'[name].min.js'
+        filename:'[name].bundle.js'
     },
     plugins:[
         //业务代码提取公用模块
@@ -31,6 +31,3 @@ module.exports = {
     ]
 }
 
-/*
-*
-* */

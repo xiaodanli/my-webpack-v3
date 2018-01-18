@@ -8,7 +8,7 @@ module.exports = {
         pageB:'./pageB'
     },
     output:{
-        filename:'[name].min.js'
+        filename:'[name].bundle.js'
     },
     plugins:[
         new CommonsChunkPlugin({
