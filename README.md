@@ -28,7 +28,7 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
     2》output  出口
 
-    3》loader
+    3》loader  注：loader是自下而上依次执行的
 
     4》plugins
 
@@ -38,7 +38,7 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
                Module   模块
 
-四、步骤和demo说明
+四、demo说明
 
     首先，全局和本地安装webpack
 
@@ -94,7 +94,7 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
             使用：在代码开头引用  import 'babel-polyfill'
 
-    6》demo6 打包公用代码（1）
+    6.1》demo6-1 打包公用代码
 
         原因：1）减少代码冗余  2）提高加载速度
 
@@ -122,15 +122,15 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
             1）提取两个及两个以上 Chunk 的公共代码
 
-    7》demo7 打包公用代码（2） 提取第三方依赖
+    6.2》demo6-2 打包公用代码 提取第三方依赖
 
         #遇到webpackJsonp is not defined？
 
         解决办法：把生成的公用文件放到自己js前面即可
 
-    8》demo8 代码分割和懒加载（1） 让用户在尽可能少的时间内看到页面  适用单entry
+    7.1》demo7-1 代码分割和懒加载  让用户在尽可能少的时间内看到页面  适用单entry
 
-        webpack内置的方法
+        （1）webpack内置的方法
 
             #require.ensure([依赖],callback,errorCallback(可省略),chunkName)
 
@@ -145,9 +145,9 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
             #require.include 引用却不执行
 
-    9》demo9 代码分割和懒加载（2）
+    7.2》demo7-2 代码分割和懒加载
 
-        2）ES2015 loader spec
+        （2）ES2015 loader spec
 
             import() -> 返回Promise  import()-->引用并执行代码
 
@@ -166,7 +166,139 @@ webpack是一个现代javascript应用程序的静态模块打包器。
 
             3）分离首次加载和访问后加载代码
 
-    10》demo10是打包公用代码和代码分割整合
+    7.3》demo7-3 打包公用代码和代码分割整合
+
+    8》demo8  编译less，自动添加前缀，删除多余的css，压缩css，提取css文件，嵌入到页面中
+
+        1)html页面以style标签嵌入页面
+
+            作用：css-loader是读取js内import的css，style-loader是把css嵌入到html页面内
+
+           npm install style-loader css-loader --save-dev
+
+           css-loader
+
+               配置：
+
+                   options：
+
+                       alias ( 解析的别名 )
+
+                       importLoader ( @import )
+
+                       minimize ( 是否压缩 )  使用的css-nano来实现的
+
+                       modules ( 启用css-modules )
+        2)PostCSS
+
+           npm install postcss-loader --save-dev
+
+           1）Autoprefixer
+
+               作用：自动添加前缀
+
+                   以下两种方法都可以实现
+
+                   1>在根目录下面新建一个postcss.config.js
+
+                        module.exports = {
+                            plugins:[
+                                require('autoprefixer')
+                            ]
+                        }
+
+                   2>在postcss-loader的options里面配置plugin
+
+                        {
+                            loader:'postcss-loader',
+                            options:{
+                                plugins:[
+                                    require('autoprefixer')()
+                                ]
+                            }
+                        }
+
+               broswerslist所有插件公用 以下两种方法都可以实现
+
+                   1）package.json   "browerslist":[
+                                        " >= 1% ",
+                                        "last 2 versions"
+                                      ]
+
+                   2) .browserslistrc
+
+        2)编译less
+
+           npm install less-loader less --save-dev
+
+        3)提取css代码
+
+           ExtractTextWebpackPlugin插件
+
+           npm install extract-text-webpack-plugin --save-dev
+
+           参数：allChunk：false 默认值为false
+
+        4)CSS Tree Sharking 去掉没有用到css
+
+            使用场景：
+
+                1)常规优化
+
+                2)引用第三方库的某一个样式
+
+                Purify CSS  https://github.com/purifycss/purifycss
+
+                针对webpack有一个插件  purifycss-webpack
+
+                npm install purifycss-webpack purify-css glob-all --save-dev
+
+                配置：
+
+                    options
+
+                        paths:glob.sync([])
+
+    9》图片处理
+
+        1》css中引入的图片
+
+        2》自动合成雪碧图
+
+        3》压缩图片
+
+            压缩jpg图片时，遇到的问题
+
+            brew install libpng
+
+        4》base64编码
+
+        使用的loader
+
+            file-loader         引用的图片     npm install file-loader --save-dev
+
+            url-loader          base64格式    npm install url-loader --save-dev
+
+            img-loader          压缩图片       npm install img-loader --save-dev
+
+        注：在html页面,img引入的图片，需要使用html-loader来打包生成新的页面
+
+            在js里面的图片，需要使用require来引用，否则不会编译
+
+        处理html里img引用的图片        npm install html-loader --save-dev
+
+        打包编译html,生成一个新的html   npm install html-webpack-plugin --save-dev
+
+
+
+
+
+
+
+
+
+
+
 
 
 
